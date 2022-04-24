@@ -39,7 +39,7 @@ def fetch_cards(message):
         'cards': []
     }
     for query in queries:
-        (name, fetch_type, extras, set_code) = query
+        (name, fetch_type, extras, set_code, collector_number) = query
         card = fetch_card(name, fetch_type, extras, set_code, collector_number)
         print(card)
         response_card = {
