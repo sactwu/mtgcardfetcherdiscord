@@ -10,7 +10,7 @@ def split_match(match):
     extras = False
     set_code = ''
     collector_number = ''
-    for token in split_text[1:]:
+    for token in split_text:
         clean_token = token.lower().strip()
         if clean_token in ['text', 'txt']:
             fetch_type = 'text'
@@ -20,6 +20,8 @@ def split_match(match):
             set_code = clean_token
         if clean_token.isdigit():
             collector_number = clean_token
+        else:
+            name = clean_token
     return name, fetch_type, extras, set_code, collector_number
 
 
