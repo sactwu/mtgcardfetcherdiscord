@@ -80,30 +80,30 @@ def get_part_values(part):
 
 
 def fetch_card(name, fetch_type, extras, set_code, collector_number):
-    try:
-        if name:
-            card = get_card_by_name(name, set_code)
-        elif set_code and collector_number:
-            card = get_card_by_number(set_code, collector_number)
-        else:
-            return ['please provide either a card name or both set code and collector number']
-        cards_values = get_all_cards_values(card, extras)
-        if fetch_type == 'image':
-            response = []
-            for values in cards_values:
-                response.append(values["Scryfall Link"])
-                response.append(values["Image"])
-                print('fetched image from scryfall')
-            return response
-        if fetch_type == 'text':
-            response = ''
-            for values in cards_values:
-                for value in values:
-                    if not value == 'Image':
-                        response += f'{value}: {values[value]}\n'
-                if len(values) > 1:
-                    response += '----------------\n'
-                print('fetched text from scryfall')
-            return [response]
-    except:
-        return ['error']
+    # try:
+    if name:
+        card = get_card_by_name(name, set_code)
+    elif set_code and collector_number:
+        card = get_card_by_number(set_code, collector_number)
+    else:
+        return ['please provide either a card name or both set code and collector number']
+    cards_values = get_all_cards_values(card, extras)
+    if fetch_type == 'image':
+        response = []
+        for values in cards_values:
+            response.append(values["Scryfall Link"])
+            response.append(values["Image"])
+            print('fetched image from scryfall')
+        return response
+    if fetch_type == 'text':
+        response = ''
+        for values in cards_values:
+            for value in values:
+                if not value == 'Image':
+                    response += f'{value}: {values[value]}\n'
+            if len(values) > 1:
+                response += '----------------\n'
+            print('fetched text from scryfall')
+        return [response]
+    # except:
+    #    return ['error']
