@@ -91,6 +91,7 @@ def fetch_card(name, fetch_type, extras, set_code, collector_number):
         if fetch_type == 'image':
             response = []
             for values in cards_values:
+                response.append(values["Scryfall Link"])
                 response.append(values["Image"])
                 print('fetched image from scryfall')
             return response
