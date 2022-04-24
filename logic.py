@@ -15,11 +15,11 @@ def split_match(match):
         clean_token = token.lower().strip()
         if clean_token in ['text', 'txt']:
             fetch_type = 'text'
-        if clean_token in ['extras', 'extra', 'full']:
+        elif clean_token in ['extras', 'extra', 'full']:
             extras = True
-        if clean_token in set_codes:
+        elif clean_token in set_codes:
             set_code = clean_token
-        if clean_token.isdigit():
+        elif clean_token.isdigit():
             collector_number = clean_token
         else:
             name = clean_token
