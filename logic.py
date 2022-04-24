@@ -6,6 +6,7 @@ def split_match(match):
     split_text = match.split('|')
     name = split_text[0].strip()
     set_codes = get_set_codes()
+    name = ''
     fetch_type = 'image'
     extras = False
     set_code = ''
@@ -22,6 +23,7 @@ def split_match(match):
             collector_number = clean_token
         else:
             name = clean_token
+        print(name, fetch_type, extras, set_code, collector_number)
     return name, fetch_type, extras, set_code, collector_number
 
 
