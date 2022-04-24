@@ -3,7 +3,7 @@ from scryfall import get_set_codes, fetch_card
 
 
 def split_match(match):
-    split_text = match.split('|')
+    split_text = match.split('@')
     name = split_text[0].strip()
     set_codes = get_set_codes()
     fetch_type = 'image'
