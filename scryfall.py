@@ -5,6 +5,7 @@ def get_card_by_name(name, set_code=''):
     card = scrython.cards.Named(fuzzy=name, set=set_code)
     return card
 
+
 def get_card_by_number(set_code='', collector_number=''):
     card = scrython.cards.Collector(code=set_code, collector_number=collector_number)
     return card
@@ -49,6 +50,7 @@ def get_card_values(card):
     values['Cost'] = card.mana_cost()
     values['Type'] = card.type_line()
     values['Text'] = card.oracle_text()
+    values['scryfall_link'] = card.scryfall_uri()
     if 'Creature' in values['Type']:
         values['Power/Toughness'] = f'{card.power()}/{card.toughness()}'
     if 'Planeswalker' in values['Type']:
@@ -84,7 +86,7 @@ def fetch_card(name, fetch_type, extras, set_code, collector_number):
         elif set_code & collector_number:
             card = get_card_by_name(set_code, collector_number)
         else:
-            card = []
+            return ['please provide either a card name or both set code and collector number']
         cards_values = get_all_cards_values(card, extras)
         if fetch_type == 'image':
             response = []

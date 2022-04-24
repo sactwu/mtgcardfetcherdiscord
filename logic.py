@@ -44,7 +44,6 @@ def fetch_cards(message):
         print(card)
         response_card = {
             'fetch_type': fetch_type,
-            'scryfall_link': card.scryfall_uri(),
             'items': [],
             'len': len(card)
         }
