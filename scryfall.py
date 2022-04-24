@@ -1,8 +1,12 @@
 import scrython
 
 
-def get_card(name, set_code=''):
+def get_card_by_name(name, set_code=''):
     card = scrython.cards.Named(fuzzy=name, set=set_code)
+    return card
+
+def get_card_by_number(set_code='', collector_number=''):
+    card = scrython.cards.Collector(code=set_code, collector_number=collector_number)
     return card
 
 
@@ -73,9 +77,14 @@ def get_part_values(part):
     return values
 
 
-def fetch_card(name, fetch_type, extras, set_code):
+def fetch_card(name, fetch_type, extras, set_code, collector_number):
     try:
-        card = get_card(name, set_code)
+        if name:
+            card = get_card_by_name(name, set_code)
+        elif set_code & collector_number:
+            card = get_card_by_name(set_code, collector_number)
+        else:
+            card = []
         cards_values = get_all_cards_values(card, extras)
         if fetch_type == 'image':
             response = []
@@ -83,7 +92,6 @@ def fetch_card(name, fetch_type, extras, set_code):
                 response.append(values["Image"])
                 print('fetched image from scryfall')
             return response
-
         if fetch_type == 'text':
             response = ''
             for values in cards_values:
