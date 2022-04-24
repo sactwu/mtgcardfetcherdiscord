@@ -50,7 +50,7 @@ def get_card_values(card):
     values['Cost'] = card.mana_cost()
     values['Type'] = card.type_line()
     values['Text'] = card.oracle_text()
-    values['scryfall_link'] = card.scryfall_uri()
+    values['Scryfall Link'] = card.scryfall_uri()
     if 'Creature' in values['Type']:
         values['Power/Toughness'] = f'{card.power()}/{card.toughness()}'
     if 'Planeswalker' in values['Type']:
