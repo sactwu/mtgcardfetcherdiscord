@@ -24,6 +24,7 @@ async def on_message(message):
     response = fetch_cards(message.content)
     for card in response['cards']:
         print('card: ', card)
+        await message.channel.send(card['scryfall_link'])
         if card['fetch_type'] == 'text':
             for item in card['items']:
                 await message.channel.send(item)
