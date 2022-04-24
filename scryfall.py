@@ -83,8 +83,8 @@ def fetch_card(name, fetch_type, extras, set_code, collector_number):
     try:
         if name:
             card = get_card_by_name(name, set_code)
-        elif set_code & collector_number:
-            card = get_card_by_name(set_code, collector_number)
+        elif set_code and collector_number:
+            card = get_card_by_number(set_code, collector_number)
         else:
             return ['please provide either a card name or both set code and collector number']
         cards_values = get_all_cards_values(card, extras)
