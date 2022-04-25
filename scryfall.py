@@ -33,24 +33,26 @@ def get_all_cards_values(card, extras):
                     cards_values.append(get_card_values(card))
                 else:
                     cards_values.append(get_part_values(part))
-    elif 'card_faces' in card.scryfallJson:
-        for part in card.scryfallJson['card_faces']:
-            if part['name'] == card.name():
-                cards_values.append(get_card_values(card))
-            else:
-                cards_values.append(get_part_values(part))
+    elif card.scryfallJson['layout'] not in ['split', 'adventure', 'flip']:
+        if 'card_faces' in card.scryfallJson:
+            for part in card.scryfallJson['card_faces']:
+                if part['name'] == card.name():
+                    cards_values.append(get_card_values(card))
+                else:
+                    cards_values.append(get_part_values(part))
     else:
         cards_values.append(get_card_values(card))
     return cards_values
 
 
-def get_card_values(card):
+def get_card_values(card, link=true):
     values = dict()
     values['Name'] = card.name()
     values['Cost'] = card.mana_cost()
     values['Type'] = card.type_line()
     values['Text'] = card.oracle_text()
-    values['Scryfall Link'] = card.scryfall_uri()
+    if link:
+        values['Scryfall Link'] = card.scryfall_uri()
     if 'Creature' in values['Type']:
         values['Power/Toughness'] = f'{card.power()}/{card.toughness()}'
     if 'Planeswalker' in values['Type']:
@@ -67,7 +69,7 @@ def get_part_values(part):
     values['Name'] = part['name']
     values['Type'] = part['type_line']
     if part['object'] == 'related_card':
-        values = get_card_values(scrython.cards.Id(id=part['id']))
+        values = get_card_values(scrython.cards.Id(id=part['id']), link=false)
     else:
         print(part)
         values['Cost'] = part['mana_cost']
