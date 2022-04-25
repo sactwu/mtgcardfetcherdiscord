@@ -69,6 +69,7 @@ def get_part_values(part):
     if part['object'] == 'related_card':
         values = get_card_values(scrython.cards.Id(id=part['id']))
     else:
+        print(part)
         values['Cost'] = part['mana_cost']
         values['Text'] = part['oracle_text']
         if 'Creature' in values['Type']:
