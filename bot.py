@@ -20,7 +20,6 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    print(message.content)
     response = fetch_cards(message.content)
     for card in response['cards']:
         print('card: ', card)

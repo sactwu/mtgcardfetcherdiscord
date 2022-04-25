@@ -24,7 +24,6 @@ def get_set_codes():
 
 
 def get_all_cards_values(card, extras):
-    # print(card.scryfallJson)
     cards_values = []
     split = False
     if extras:
@@ -74,7 +73,6 @@ def get_part_values(part, split=False):
     if part['object'] == 'related_card':
         values = get_card_values(scrython.cards.Id(id=part['id']), link=False)
     else:
-        print(part)
         values['Cost'] = part['mana_cost']
         values['Text'] = part['oracle_text']
         if 'Creature' in values['Type']:

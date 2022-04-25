@@ -33,7 +33,7 @@ def get_queries(message):
     for match in matches:
         name, fetch_type, extras, set_code, collector_number = split_match(match)
         queries.append((name, fetch_type, extras, set_code, collector_number))
-
+    print(queries)
     return queries
 
 
@@ -45,7 +45,6 @@ def fetch_cards(message):
     for query in queries:
         (name, fetch_type, extras, set_code, collector_number) = query
         card = fetch_card(name, fetch_type, extras, set_code, collector_number)
-        print(card)
         response_card = {
             'fetch_type': fetch_type,
             'items': [],
