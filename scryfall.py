@@ -26,6 +26,7 @@ def get_set_codes():
 def get_all_cards_values(card, extras):
     # print(card.scryfallJson)
     cards_values = []
+    split = False
     if extras:
         if 'all_parts' in card.scryfallJson:
             for part in card.scryfallJson['all_parts']:
@@ -33,13 +34,14 @@ def get_all_cards_values(card, extras):
                     cards_values.append(get_card_values(card))
                 else:
                     cards_values.append(get_part_values(part))
-    elif card.scryfallJson['layout'] not in ['split', 'adventure', 'flip']:
-        if 'card_faces' in card.scryfallJson:
-            for part in card.scryfallJson['card_faces']:
-                if part['name'] == card.name():
-                    cards_values.append(get_card_values(card))
-                else:
-                    cards_values.append(get_part_values(part))
+    elif 'card_faces' in card.scryfallJson:
+        if card.scryfallJson['layout'] in ['split', 'adventure', 'flip']:
+            split = True
+        for part in card.scryfallJson['card_faces']:
+            if part['name'] == card.name():
+                cards_values.append(get_card_values(card))
+            else:
+                cards_values.append(get_part_values(part, split))
     else:
         cards_values.append(get_card_values(card))
     return cards_values
@@ -65,7 +67,7 @@ def get_card_values(card, link=True):
     return values
 
 
-def get_part_values(part):
+def get_part_values(part, split=False):
     values = dict()
     values['Name'] = part['name']
     values['Type'] = part['type_line']
@@ -79,7 +81,8 @@ def get_part_values(part):
             values['Power/Toughness'] = f'{part["power"]}/{part["toughness"]}'
         if 'Planeswalker' in values['Type']:
             values['Loyalty'] = part['loyalty']
-        values['Image'] = part['image_uris']['normal']
+        if not split:
+            values['Image'] = part['image_uris']['normal']
     return values
 
 
